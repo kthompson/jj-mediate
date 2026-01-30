@@ -1,0 +1,179 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Required for nbgv
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    
+    - name: Install tools
+      run: |
+        dotnet tool install -g nbgv
+        dotnet tool restore
+    
+    - name: Set version
+      run: nbgv cloud
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Test
+      run: dotnet test --no-build --configuration Release --verbosity normal --logger "trx;LogFileName=test-results.trx"
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: '**/test-results.trx'
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    
+    - name: Restore tools
+      run: dotnet tool restore
+    
+    - name: Run CSharpier
+      run: dotnet csharpier check .
+
+  publish-nuget:
+    if: github.event_name == 'release'
+    needs: [build-and-test, lint]
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Required for nbgv
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    
+    - name: Install nbgv
+      run: dotnet tool install -g nbgv
+    
+    - name: Set version
+      run: nbgv cloud
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Pack
+      run: dotnet pack jj-resolve/jj-resolve.csproj --configuration Release --no-build --output ./nupkg
+    
+    - name: Push to NuGet
+      run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  publish-binaries:
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    needs: [build-and-test, lint]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runtime: 
+          - win-x64
+          - linux-x64
+          - osx-x64
+          - osx-arm64
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Required for nbgv
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    
+    - name: Install nbgv
+      run: dotnet tool install -g nbgv
+    
+    - name: Set version
+      run: nbgv cloud
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Publish ${{ matrix.runtime }}
+      run: |
+        dotnet publish jj-resolve/jj-resolve.csproj \
+          --configuration Release \
+          --runtime ${{ matrix.runtime }} \
+          --self-contained true \
+          --output ./publish/${{ matrix.runtime }} \
+          -p:PublishSingleFile=true \
+          -p:IncludeNativeLibrariesForSelfExtract=true
+    
+    - name: Create archive
+      run: |
+        cd ./publish/${{ matrix.runtime }}
+        if [[ "${{ matrix.runtime }}" == win-* ]]; then
+          zip -r ../../jj-resolve-${{ matrix.runtime }}.zip *
+        else
+          tar -czf ../../jj-resolve-${{ matrix.runtime }}.tar.gz *
+        fi
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: jj-resolve-${{ matrix.runtime }}
+        path: |
+          jj-resolve-${{ matrix.runtime }}.zip
+          jj-resolve-${{ matrix.runtime }}.tar.gz
+
+  create-release:
+    if: github.event_name == 'release'
+    needs: [publish-nuget, publish-binaries]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        merge-multiple: true
+    
+    - name: Upload release assets
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          artifacts/jj-resolve-*.zip
+          artifacts/jj-resolve-*.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

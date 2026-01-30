@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>JJResolve</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>jj-resolve</AssemblyName>
+
+    <!-- Package as dotnet tool -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>jj-resolve</ToolCommandName>
+
+    <!-- Package metadata -->
+    <PackageId>jj-resolve</PackageId>
+    <Authors>jj-resolve contributors</Authors>
+    <Description>A tool to intelligently resolve merge conflicts in Jujutsu VCS. Port of git-mediate to C#.</Description>
+    <PackageProjectUrl>https://github.com/yourusername/jj-mediate</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/yourusername/jj-mediate</RepositoryUrl>
+    <PackageLicenseExpression>GPL-2.0-only</PackageLicenseExpression>
+    <PackageTags>jujutsu;jj;merge;conflict;resolution;vcs</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.9.50">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
