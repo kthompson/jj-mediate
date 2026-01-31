@@ -54,6 +54,31 @@ dotnet build -c Release
 
 ## Development
 
+### Quick Start
+
+The repository includes PowerShell scripts for common development tasks:
+
+```bash
+# Format code
+./format.ps1
+
+# Check code formatting (lint)
+./lint.ps1
+
+# Build project
+./build.ps1
+
+# Run tests
+./test.ps1
+
+# Run full CI pipeline locally (lint + build + test)
+./ci.ps1
+```
+
+**Script Options:**
+- `build.ps1 -Configuration Debug` - Build in Debug mode
+- `test.ps1 -Verbosity detailed` - Run tests with detailed output
+
 ### Versioning
 
 This project uses [Nerdbank.GitVersioning (nbgv)](https://github.com/dotnet/Nerdbank.GitVersioning) for automatic version management based on git history.
