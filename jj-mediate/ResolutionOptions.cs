@@ -1,4 +1,4 @@
-namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// Options for conflict resolution behavior.

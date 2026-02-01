@@ -2,23 +2,23 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
-    <RootNamespace>JJResolve</RootNamespace>
+    <RootNamespace>JJMediate</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>jj-resolve</AssemblyName>
+    <AssemblyName>jj-mediate</AssemblyName>
 
     <!-- Package as dotnet tool -->
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>jj-resolve</ToolCommandName>
+    <ToolCommandName>jj-mediate</ToolCommandName>
 
     <!-- Package metadata -->
-    <PackageId>jj-resolve</PackageId>
-    <Authors>jj-resolve contributors</Authors>
+    <PackageId>jj-mediate</PackageId>
+    <Authors>jj-mediate contributors</Authors>
     <Description>A tool to intelligently resolve merge conflicts in Jujutsu VCS. Port of git-mediate to C#.</Description>
     <PackageProjectUrl>https://github.com/yourusername/jj-mediate</PackageProjectUrl>
     <RepositoryUrl>https://github.com/yourusername/jj-mediate</RepositoryUrl>
     <PackageLicenseExpression>GPL-2.0-only</PackageLicenseExpression>
-    <PackageTags>jujutsu;jj;merge;conflict;resolution;vcs</PackageTags>
+    <PackageTags>jujutsu;jj;merge;conflict;resolution;vcs;mediate</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

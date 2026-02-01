@@ -1,4 +1,4 @@
-namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// Result of attempting to resolve a single conflict.

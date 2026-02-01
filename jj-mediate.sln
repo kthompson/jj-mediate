@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jj-resolve", "jj-resolve\jj-resolve.csproj", "{0B451793-5A04-430B-938E-DC477A3A84CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jj-mediate", "jj-mediate\jj-mediate.csproj", "{0B451793-5A04-430B-938E-DC477A3A84CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jj-resolve.Tests", "jj-resolve.Tests\jj-resolve.Tests.csproj", "{52069434-171D-4BB1-9A46-CD4349DEE218}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jj-mediate.Tests", "jj-mediate.Tests\jj-mediate.Tests.csproj", "{52069434-171D-4BB1-9A46-CD4349DEE218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

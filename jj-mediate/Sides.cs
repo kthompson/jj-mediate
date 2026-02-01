@@ -1,4 +1,4 @@
-namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// Container for the three sides of a merge conflict: SideA (ours), Base (original), and SideB (theirs).

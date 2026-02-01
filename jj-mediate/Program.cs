@@ -1,4 +1,4 @@
-﻿using JJResolve;
+using JJMediate;
 
 // Parse command-line arguments
 var cmdArgs = Environment.GetCommandLineArgs().Skip(1).ToArray();
@@ -15,7 +15,7 @@ foreach (var arg in cmdArgs)
             ShowHelp();
             return 0;
         case "--version" or "-v":
-            Console.WriteLine("jj-resolve 1.0.0");
+            Console.WriteLine("jj-mediate 1.0.0");
             return 0;
         case "--no-trivial":
             options = options with { Trivial = false };
@@ -119,10 +119,10 @@ return totalResult.FullySuccessful ? 0 : 1;
 
 static void ShowHelp()
 {
-    Console.WriteLine("jj-resolve - Intelligent conflict resolution for Jujutsu");
+    Console.WriteLine("jj-mediate - Intelligent conflict resolution for Jujutsu");
     Console.WriteLine();
     Console.WriteLine("USAGE:");
-    Console.WriteLine("  jj-resolve [OPTIONS] [FILE]");
+    Console.WriteLine("  jj-mediate [OPTIONS] [FILE]");
     Console.WriteLine();
     Console.WriteLine("OPTIONS:");
     Console.WriteLine("  -h, --help              Show this help message");
@@ -141,7 +141,7 @@ static void ShowHelp()
     Console.WriteLine("                          If not specified, resolves all conflicted files");
     Console.WriteLine();
     Console.WriteLine("EXAMPLES:");
-    Console.WriteLine("  jj-resolve              Resolve all conflicts in repository");
-    Console.WriteLine("  jj-resolve file.cs      Resolve conflicts in specific file");
-    Console.WriteLine("  jj-resolve --untabify=4 Resolve with tab expansion");
+    Console.WriteLine("  jj-mediate              Resolve all conflicts in repository");
+    Console.WriteLine("  jj-mediate file.cs      Resolve conflicts in specific file");
+    Console.WriteLine("  jj-mediate --untabify=4 Resolve with tab expansion");
 }

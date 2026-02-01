@@ -1,4 +1,4 @@
-namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// Represents a merge conflict with diff3-style markers.

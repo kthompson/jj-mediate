@@ -1,10 +1,10 @@
-# jj-resolve
+# jj-mediate
 
 A port of [git-mediate](https://github.com/Peaker/git-mediate/) to C# for use with [Jujutsu VCS](https://docs.jj-vcs.dev/).
 
 ## What is it?
 
-`jj-resolve` helps you resolve merge conflicts intelligently. When you have a 3-way merge conflict (showing base, side A, and side B), it can:
+`jj-mediate` helps you resolve merge conflicts intelligently. When you have a 3-way merge conflict (showing base, side A, and side B), it can:
 
 - **Auto-resolve trivial conflicts** where only one side changed
 - **Reduce complex conflicts** by removing matching lines from start/end
@@ -36,20 +36,20 @@ For complex conflicts, it finds matching prefix/suffix lines and removes them to
 
 ```bash
 # Install from NuGet
-dotnet tool install -g jj-resolve
+dotnet tool install -g jj-mediate
 
 # Update to latest version
-dotnet tool update -g jj-resolve
+dotnet tool update -g jj-mediate
 
 # Uninstall
-dotnet tool uninstall -g jj-resolve
+dotnet tool uninstall -g jj-mediate
 ```
 
 ### From Source
 
 ```bash
 dotnet build -c Release
-# Binary will be in jj-resolve/bin/Release/net10.0/
+# Binary will be in jj-mediate/bin/Release/net10.0/
 ```
 
 ## Development
@@ -152,10 +152,10 @@ Dependabot is configured to automatically check for updates to:
 
 ```bash
 # Resolve conflicts in current jj repository
-jj-resolve
+jj-mediate
 
 # Resolve specific file
-jj-resolve path/to/conflicted-file.cs
+jj-mediate path/to/conflicted-file.cs
 ```
 
 ## Options
@@ -178,7 +178,7 @@ $ jj status
 file.cs (conflicted)
 ...
 
-$ jj-resolve
+$ jj-mediate
 file.cs: Successfully resolved 3 conflicts (failed to resolve 1 conflict)
 
 $ jj status
@@ -207,3 +207,4 @@ See the [LICENSE](LICENSE) file for the complete license text.
 ## Credits
 
 Based on [git-mediate](https://github.com/Peaker/git-mediate/) by Eyal Lotem.
+

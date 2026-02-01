@@ -92,7 +92,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     
     - name: Pack
-      run: dotnet pack jj-resolve/jj-resolve.csproj --configuration Release --no-build --output ./nupkg
+      run: dotnet pack jj-mediate/jj-mediate.csproj --configuration Release --no-build --output ./nupkg
     
     - name: Push to NuGet
       run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
@@ -130,7 +130,7 @@ jobs:
     
     - name: Publish ${{ matrix.runtime }}
       run: |
-        dotnet publish jj-resolve/jj-resolve.csproj \
+        dotnet publish jj-mediate/jj-mediate.csproj \
           --configuration Release \
           --runtime ${{ matrix.runtime }} \
           --self-contained true \
@@ -142,18 +142,18 @@ jobs:
       run: |
         cd ./publish/${{ matrix.runtime }}
         if [[ "${{ matrix.runtime }}" == win-* ]]; then
-          zip -r ../../jj-resolve-${{ matrix.runtime }}.zip *
+          zip -r ../../jj-mediate-${{ matrix.runtime }}.zip *
         else
-          tar -czf ../../jj-resolve-${{ matrix.runtime }}.tar.gz *
+          tar -czf ../../jj-mediate-${{ matrix.runtime }}.tar.gz *
         fi
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v6
       with:
-        name: jj-resolve-${{ matrix.runtime }}
+        name: jj-mediate-${{ matrix.runtime }}
         path: |
-          jj-resolve-${{ matrix.runtime }}.zip
-          jj-resolve-${{ matrix.runtime }}.tar.gz
+          jj-mediate-${{ matrix.runtime }}.zip
+          jj-mediate-${{ matrix.runtime }}.tar.gz
 
   create-release:
     if: github.event_name == 'release'
@@ -173,7 +173,8 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          artifacts/jj-resolve-*.zip
-          artifacts/jj-resolve-*.tar.gz
+          artifacts/jj-mediate-*.zip
+          artifacts/jj-mediate-*.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

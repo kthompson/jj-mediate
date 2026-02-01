@@ -1,4 +1,4 @@
-namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// File operations for conflict resolution.
@@ -108,7 +108,7 @@ public static class FileOperations
     /// </summary>
     private static void OverwriteFile(string filePath, string content)
     {
-        var tempPath = filePath + ".jj-resolve-tmp";
+        var tempPath = filePath + ".jj-mediate-tmp";
         var backupPath = filePath + ".bk";
 
         try

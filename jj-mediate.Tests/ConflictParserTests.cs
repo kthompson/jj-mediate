@@ -1,4 +1,4 @@
-namespace JJResolve.Tests;
+namespace JJMediate.Tests;
 
 public class ConflictParserTests
 {
