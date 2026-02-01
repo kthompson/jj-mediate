@@ -1,4 +1,4 @@
-﻿namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// Discriminated union representing either a plain line or a conflict.

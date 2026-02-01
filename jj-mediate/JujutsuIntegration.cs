@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// Jujutsu VCS integration.

@@ -1,4 +1,4 @@
-﻿namespace JJResolve;
+namespace JJMediate;
 
 /// <summary>
 /// Represents the result of processing file content with resolved/reduced conflicts.

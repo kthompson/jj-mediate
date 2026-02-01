@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <RootNamespace>jj_resolve.Tests</RootNamespace>
+    <RootNamespace>JJMediate.Tests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -19,6 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\jj-resolve\jj-resolve.csproj" />
+    <ProjectReference Include="..\jj-mediate\jj-mediate.csproj" />
   </ItemGroup>
 </Project>
